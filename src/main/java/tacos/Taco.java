@@ -1,4 +1,4 @@
-package tacos.entities;
+package tacos;
 
 import java.util.List;
 import lombok.Data;
