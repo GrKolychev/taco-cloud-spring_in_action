@@ -24,5 +24,4 @@ public class OrderController {
         log.info("Order submitted: " + order);
         return "redirect:/";
     }
-
 }
