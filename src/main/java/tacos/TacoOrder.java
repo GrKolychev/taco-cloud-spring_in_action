@@ -1,6 +1,7 @@
 package tacos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +11,8 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 @Data
 public class TacoOrder {
-
+    private Long id;
+    private Date placedAt;
     @NotBlank(message="Delivery name is required")
     private String deliveryName;
     @NotBlank(message="Street is required")
