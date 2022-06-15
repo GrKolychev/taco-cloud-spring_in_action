@@ -17,9 +17,10 @@ import tacos.TacoOrder;
 
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
+
     private JdbcOperations jdbcOperations;
 
-    public JdbcOrderRepository(JdbcOperations jdbcOperations) {
+    public JdbcOrderRepository(final JdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
     }
 

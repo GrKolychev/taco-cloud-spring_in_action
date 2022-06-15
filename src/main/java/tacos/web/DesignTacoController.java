@@ -3,6 +3,7 @@ package tacos.web;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,14 +24,10 @@ import tacos.data.IngredientRepository;
 @Controller
 @RequestMapping("/design")  // Specify kind of requests to handle
 @SessionAttributes("tacoOrder")
+@AllArgsConstructor
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
-
-    @Autowired
-    public DesignTacoController(final IngredientRepository ingredientRepo) {
-        this.ingredientRepo = ingredientRepo;
-    }
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {

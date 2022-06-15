@@ -1,6 +1,7 @@
 package tacos.web;
 
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +18,10 @@ import tacos.data.OrderRepository;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
+@AllArgsConstructor
 public class OrderController {
 
     private OrderRepository orderRepo;
-    public OrderController(OrderRepository orderRepo) {
-        this.orderRepo = orderRepo;
-    }
 
     @GetMapping("/current")
     public String orderForm(final Model model) {
