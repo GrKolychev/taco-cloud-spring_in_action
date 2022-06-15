@@ -1,5 +1,8 @@
 package tacos.data;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,22 +11,43 @@ import tacos.Ingredient;
 
 @Repository
 @AllArgsConstructor
-public class JdbcIngredientRepository implements IngredientRepository{
+public class JdbcIngredientRepository implements IngredientRepository {
 
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public Iterable<Ingredient> findAll() {
-        return null;
+        return jdbcTemplate.query(
+                "select id, name, type from Ingredient",
+                this::mapRowToIngredient);
     }
 
     @Override
     public Optional<Ingredient> findById(final String id) {
-        return Optional.empty();
+        List<Ingredient> results = jdbcTemplate.query(
+                "select id, name, type from Ingredient where id=?",
+                this::mapRowToIngredient,
+                id);
+        return results.isEmpty() ?
+                Optional.empty() :
+                Optional.of(results.get(0));
     }
 
     @Override
     public Ingredient save(final Ingredient ingredient) {
-        return null;
+        jdbcTemplate.update(
+                "insert into Ingredient (id, name, type) values (?, ?, ?)",
+                ingredient.getId(),
+                ingredient.getName(),
+                ingredient.getType().toString());
+        return ingredient;
+    }
+
+    private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
+            throws SQLException {
+        return new Ingredient(
+                row.getString("id"),
+                row.getString("name"),
+                Ingredient.Type.valueOf(row.getString("type")));
     }
 }
